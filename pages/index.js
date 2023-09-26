@@ -26,7 +26,7 @@ export default function Home() {
   // Handling Scroll
   const handleWorkScroll = () => {
     window.scrollTo({
-      top: workRef.current.offsetTop,
+      top: workRef.current.offsetTop-50,
       left: 0,
       behavior: "smooth",
     });
@@ -63,32 +63,33 @@ export default function Home() {
           handleWorkScroll={handleWorkScroll}
           handleAboutScroll={handleAboutScroll}
         />
-        <div className="laptop:mt-20 mt-10">
-          <div className="mt-5">
+        {/* Make this div fill full screen */}
+        <div className="flex flex-col laptop:mt-20 mt-10 h-screen justify-around">
+          <div className="mt-5 text-center">
             <h1
               ref={textOne}
-              className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-4/5 mob:w-full laptop:w-4/5"
+              className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-4/5 mob:w-full laptop:w-full"
             >
-              {data.headerTaglineOne}
+              <span style={{color: '#8ecae6'}}>{data.headerTaglineOne.split(',')[0]}, </span><span>{data.headerTaglineOne.split(',')[1]}</span>
             </h1>
             <h1
               ref={textTwo}
-              className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-full laptop:w-4/5"
+              className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-full laptop:w-full"
             >
               {data.headerTaglineTwo}
             </h1>
             <h1
               ref={textThree}
-              className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-full laptop:w-4/5"
+              className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-full laptop:w-full"
             >
               {data.headerTaglineThree}
             </h1>
             <h1
               ref={textFour}
-              className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-full laptop:w-4/5"
+              className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-full laptop:w-full"
             >
               {data.headerTaglineFour}
-            </h1>
+            </h1>          
           </div>
 
           <Socials className="mt-2 laptop:mt-5" />
@@ -103,7 +104,7 @@ export default function Home() {
                 img={project.imageSrc}
                 name={project.title}
                 description={project.description}
-                onClick={() => window.open(project.url)}
+                // onClick={() => window.open(project.url)}
               />
             ))}
           </div>

@@ -21,7 +21,7 @@ const Edit = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data,null,2),
       });
     } else {
       alert("This thing only works in development mode.");
