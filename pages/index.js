@@ -137,7 +137,7 @@ export default function Home() {
           </div>
         )}
         {/* This button should go into production */}
-        {process.env.NODE_ENV !== "development" && (
+        {(process.env.NODE_ENV === "development" || process.env.NODE_ENV === "production") && (
           <div className="fixed bottom-5 right-5">
             <Button type="calendar" drawAttention >Meet with me 🤝 ☕️</Button>
           </div>
