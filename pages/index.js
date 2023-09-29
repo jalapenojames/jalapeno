@@ -70,7 +70,12 @@ export default function Home() {
               ref={textOne}
               className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-4/5 mob:w-full laptop:w-full"
             >
-              <span style={{color: '#8ecae6'}}>{data.headerTaglineOne.split(',')[0]}, </span><span>{data.headerTaglineOne.split(',')[1]}</span>
+              <span className="" style={{color: '#8ecae6'}}>
+                {data.headerTaglineOne.split(',')[0]}, 
+              </span>
+              <span className="">
+                {data.headerTaglineOne.split(',')[1]}
+              </span>
             </h1>
             <h1
               ref={textTwo}
