@@ -37,7 +37,7 @@ const Button = ({
           : "hover:bg-slate-100"
       } ${
         drawAttention
-          ? "bg-blue-600 text-sky-200 hover:bg-blue-900 hover:text-white laptop:p-5 laptop:text-2xl" 
+          ? "bg-blue-900 text-sky-200 hover:bg-blue-600 hover:text-white laptop:p-5 laptop:text-2xl" 
           : "text-sm"
       } hover:scale-105 active:scale-100  tablet:first:ml-0  ${
         data.showCursor && "cursor-none"
