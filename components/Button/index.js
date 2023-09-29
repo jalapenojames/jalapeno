@@ -22,6 +22,8 @@ const Button = ({ children, type, onClick, classes }) => {
   return (
     <button
       onClick={onClick}
+      data-cal-link={type==="calendar"? "jalapeno/30min" : null}
+      data-cal-config={type==="calendar"?{"layout":"month_view"} : {}}
       type="button"
       className={`text-sm tablet:text-base p-1 laptop:p-2 m-1 laptop:m-2 rounded-lg flex items-center transition-all ease-out duration-300 ${
         theme === "dark"

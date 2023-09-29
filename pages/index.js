@@ -65,7 +65,7 @@ export default function Home() {
         />
         {/* Make this div fill full screen */}
         <div className="flex flex-col laptop:mt-20 mt-10 h-screen justify-around">
-          <div className="mt-5 text-center">
+          <div className="mt-5 text-left">
             <h1
               ref={textOne}
               className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-4/5 mob:w-full laptop:w-full"
@@ -104,7 +104,8 @@ export default function Home() {
                 img={project.imageSrc}
                 name={project.title}
                 description={project.description}
-                // onClick={() => window.open(project.url)}
+                splineScene={project.splineScene}
+                // onClick={() => project.url? window.open(project.url) : null}
               />
             ))}
           </div>

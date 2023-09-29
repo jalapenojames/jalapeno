@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import Button from "../Button";
 // Local Data
 import data from "../../data/portfolio.json";
+import Cal, { getCalApi } from "@calcom/embed-react";
 
 const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
   const router = useRouter();
@@ -15,6 +16,17 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
 
   useEffect(() => {
     setMounted(true);
+
+    // Prepare Cal.com Embed
+    (async function () {
+      const cal = await getCalApi();
+      cal("ui", {
+        theme: "system",
+        styles: {
+          branding: { brandColor: "#000000" }
+        },
+      });
+    })();
   }, []);
 
   return (
@@ -22,7 +34,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
       <Popover className="block tablet:hidden mt-5">
         {({ open }) => (
           <>
-            <div className="flex items-center justify-between p-2 laptop:p-0">
+            <div className="flex items-center cursor-pointer justify-between p-2 laptop:p-0">
               <h1
                 onClick={() => router.push("/")}
                 className="font-medium p-2 laptop:p-0 link"
@@ -84,9 +96,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                     </Button>
                   )}
 
-                  <Button
-                    onClick={() => window.open("mailto:jameschen.dev.js@gmail.com")}
-                  >
+                  <Button type="calendar" >
                     Contact
                   </Button>
                 </div>
@@ -107,9 +117,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                     </Button>
                   )}
 
-                  <Button
-                    onClick={() => window.open("mailto:jameschen.dev.js@gmail.com")}
-                  >
+                  <Button type="calendar" >
                     Contact
                   </Button>
                 </div>
@@ -145,7 +153,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
               </Button>
             )}
 
-            <Button onClick={() => window.open("mailto:jameschen.dev.js@gmail.com")}>
+            <Button type="calendar">
               Contact
             </Button>
             {mounted && theme && data.darkMode && (
@@ -174,7 +182,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
               </Button>
             )}
 
-            <Button onClick={() => window.open("mailto:jameschen.dev.js@gmail.com")}>
+            <Button type="calendar">
               Contact
             </Button>
 
