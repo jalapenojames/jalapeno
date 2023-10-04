@@ -7,7 +7,8 @@ const Button = ({
   type, 
   onClick, 
   classes, 
-  drawAttention=false 
+  drawAttention=false,
+  opacity
 }) => {
   const { theme } = useTheme();
   if (type === "primary") {
@@ -31,13 +32,14 @@ const Button = ({
       data-cal-link={type==="calendar"? "jalapeno/30min" : null}
       data-cal-config={type==="calendar"?{"layout":"month_view"} : {}}
       type="button"
+      style={{opacity: (opacity/100).toFixed(1)}}
       className={`tablet:text-base p-1 laptop:p-2 m-1 rounded-lg flex items-center transition-all ease-out duration-300 ${
         theme === "dark"
           ? "hover:bg-slate-600 text-white"
           : "hover:bg-slate-100"
       } ${
         drawAttention
-          ? "bg-blue-900 text-sky-200 hover:bg-blue-600 hover:text-white laptop:p-5 laptop:text-2xl" 
+          ? "bg-blue-900 text-sky-200 hover:bg-blue-800 hover:text-sky-100 laptop:p-5 laptop:text-2xl" 
           : "text-sm"
       } hover:scale-105 active:scale-100  tablet:first:ml-0  ${
         data.showCursor && "cursor-none"

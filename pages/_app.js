@@ -1,10 +1,13 @@
 import "../styles/globals.css";
 import { ThemeProvider } from "next-themes";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 const App = ({ Component, pageProps }) => {
   return (
     <ThemeProvider>
-      <Component {...pageProps} />
+      <ParallaxProvider>
+        <Component {...pageProps} />
+      </ParallaxProvider>
     </ThemeProvider>
   );
 };

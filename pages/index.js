@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Header from "../components/Header";
 import ServiceCard from "../components/ServiceCard";
 import Socials from "../components/Socials";
@@ -10,11 +10,36 @@ import Head from "next/head";
 import Button from "../components/Button";
 import Link from "next/link";
 import Cursor from "../components/Cursor";
+import { useScrollDirection } from 'react-use-scroll-direction'
+import { useParallax } from "react-scroll-parallax";
+import { motion, useAnimate } from 'framer-motion'
 
 // Local Data
 import data from "../data/portfolio.json";
 
 export default function Home() {
+  const [scope, animate] = useAnimate()
+
+  // Scroll Parallax
+  // const parallax = useParallax({
+  //   rotate: [0,360]
+  // })
+
+  // Scroll Percentage
+  // const [ref, percentage] = useScrollPercentage()
+
+  // Scroll Direction
+  const { isScrollingUp, isScrollingDown, scrollDirection, isScrolling } = useScrollDirection()
+  const [toggleButton, setToggle] = useState()
+  const [isVisible, setIsVisible] = useState(true)
+  const [opacity, setOpacity] = useState(100)
+
+  const delay = async (s) => {
+    await new Promise(resolve => setTimeout(resolve, s*1000))
+  }
+
+  const windowRef = useRef();
+
   // Ref
   const workRef = useRef();
   const aboutRef = useRef();
@@ -22,6 +47,10 @@ export default function Home() {
   const textTwo = useRef();
   const textThree = useRef();
   const textFour = useRef();
+
+  const handleButtonClick = () => {
+    setIsVisible(false);
+  };
 
   // Handling Scroll
   const handleWorkScroll = () => {
@@ -48,8 +77,45 @@ export default function Home() {
     );
   }, []);
 
+  useEffect(()=>{
+    const shouldShow = !((window.scrollY !== 0) && window.scrollY < (document.documentElement.offsetHeight-window.innerHeight))
+    // const value = window.scrollY <= window.screen.availHeight
+    //   ? 100-(100*window.scrollY/window.screen.availHeight).toFixed(0)
+    //   : 0
+    //   const roundToTen = Math.ceil(value/10)*10
+    //   console.log('value:', roundToTen)
+    // setOpacity(roundToTen)
+
+    // if on > off: Fade out => set to false
+    // if off > on: Fade in => set to true
+    console.log(shouldShow!==isVisible)
+
+    // If a change has occurred
+    if(shouldShow!==isVisible) {
+      if(isVisible) 
+        animate(scope.current, {opacity: 0}, {duration: .3}) // Hide button
+      else 
+        animate(scope.current, {opacity: 1}, {duration: .3}) // Show button
+      
+
+    }
+    setIsVisible(shouldShow)
+  },[isScrolling])
+
+  useEffect(()=>{
+    window.addEventListener("scroll", (e)=>handlePageScroll(e))
+    return () => window.removeEventListener("scroll",handlePageScroll)
+  })
+
+  const handlePageScroll = (e) => {
+    // console.log(e.target)
+    // console.log(document.documentElement.offsetHeight-window.innerHeight)
+    // console.log(window.outerHeight, window.innerHeight)
+    // console.log(window.scrollY)
+  }
+
   return (
-    <div className={`relative ${data.showCursor && "cursor-none"}`}>
+    <div className={`relative ${data.showCursor && "cursor-none"}`} onScroll={(e)=>handlePageScroll(e)}>
       {data.showCursor && <Cursor />}
       <Head>
         <title>{data.name}</title>
@@ -58,7 +124,7 @@ export default function Home() {
       <div className="gradient-circle"></div>
       <div className="gradient-circle-bottom"></div>
 
-      <div className="container mx-auto mb-10">
+      <div ref={windowRef} className="container mx-auto mb-10" onScroll={(e)=>handlePageScroll(e)}>
         <Header
           handleWorkScroll={handleWorkScroll}
           handleAboutScroll={handleAboutScroll}
@@ -129,17 +195,36 @@ export default function Home() {
           </div>
         </div>
         {/* This button should not go into production */}
-        {process.env.NODE_ENV === "development" && (
+        {/* {process.env.NODE_ENV === "development" && (
           <div className="fixed bottom-5 right-5">
             <Link href="/edit">
               <Button type="primary">Edit Data</Button>
             </Link>
           </div>
-        )}
+        )} */}
         {/* This button should go into production */}
         {(process.env.NODE_ENV === "development" || process.env.NODE_ENV === "production") && (
-          <div className="fixed bottom-5 right-5">
-            <Button type="calendar" drawAttention >Meet with me 🤝 ☕️</Button>
+          <div 
+            className="fixed bottom-5 right-5">
+            
+            <div
+              ref={scope}>
+              <Button 
+                ref={scope}
+                classes={`
+                  ${
+                    true
+                      ? "visible"
+                      : "invisible"
+                  }
+                `}
+                opacity={opacity}
+                type="calendar" 
+                drawAttention 
+              >
+                Meet with me 🤝 ☕️
+              </Button>
+            </div>
           </div>
         )}
         <div className="mt-10 laptop:mt-40 p-2 laptop:p-0" ref={aboutRef}>

@@ -29,7 +29,7 @@ const Cursor = () => {
           smoothness={{
             movement: 0.2,
             scale: 0.1,
-            opacity: 0.2,
+            opacity: 0.8,
           }}
           targetOpacity={0.5}
           targetScale={2}
